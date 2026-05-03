@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>AI Harcama Takipçisi</title>
- <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>AI Harcama Takipçisi</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="app">
-<h1>💸 AI Harcama Takipçisi</h1>
+  <h1>💸 AI Harcama Takipçisi</h1>
   <p class="subtitle">Akıllı bütçe analizi ve harcama kontrol paneli</p>
-<div class="card">
+
+  <div class="card">
     <h2>Harcama Ekle</h2>
+
+    <input type="text" id="title" placeholder="Harcama adı">
+    <input type="number" id="amount" placeholder="Tutar (₺)">
+
+    <select id="category">
+      <option>Yemek</option>
+      <option>Alışveriş</option>
+      <option>Ulaşım</option>
+      <option>Eğlence</option>
+      <option>Fatura</option>
+      <option>Diğer</option>
+    </select>
+
+    <button onclick="addExpense()">Harcama Ekle</button>
+  </div>
+
+  <div class="card">
+    <h2>Harcamalar</h2>
+    <div id="list">
+      <p class="empty">Henüz harcama eklenmedi.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>AI Analizi</h2>
+    <p id="aiText">Henüz analiz yapılmadı.</p>
+    <button onclick="analyze()">Analiz Et</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
