@@ -13,5 +13,3 @@ function addExpense() {
    alert("Lütfen tüm alanları doldur!");
    return;
   }
-
-  
