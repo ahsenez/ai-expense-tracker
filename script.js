@@ -10,3 +10,4 @@ function addExpense() {
   const category = document.getElementById("category").value;
 
  if (!title || !amount) {
+   alert("Lütfen tüm alanları doldur!");
