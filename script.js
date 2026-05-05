@@ -1,4 +1,11 @@
 let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+let chart;
+
+document.addEventListener("DOMContentLoaded", () => {
+  render();
+  updateSummary();
+  renderChart();
+});
 
 function saveExpenses() {
   localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -16,7 +23,10 @@ function addExpense() {
 
   expenses.push({ title, amount, category });
   saveExpenses();
+
   render();
+  updateSummary();
+  renderChart();
 
   document.getElementById("title").value = "";
   document.getElementById("amount").value = "";
@@ -48,6 +58,30 @@ function deleteExpense(index) {
   expenses.splice(index, 1);
   saveExpenses();
   render();
+  updateSummary();
+  renderChart();
+}
+
+function updateSummary() {
+  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const count = expenses.length;
+
+  let categoryTotals = {};
+  expenses.forEach(e => {
+    if (!categoryTotals[e.category]) categoryTotals[e.category] = 0;
+    categoryTotals[e.category] += e.amount;
+  });
+
+  let topCategory = "-";
+  if (Object.keys(categoryTotals).length > 0) {
+    topCategory = Object.keys(categoryTotals).reduce((a, b) =>
+      categoryTotals[a] > categoryTotals[b] ? a : b
+    );
+  }
+
+  document.getElementById("totalAmount").innerText = total + "₺";
+  document.getElementById("expenseCount").innerText = count;
+  document.getElementById("topCategory").innerText = topCategory;
 }
 
 function analyze() {
@@ -58,33 +92,67 @@ function analyze() {
     return;
   }
 
-  let total = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
 
   let categoryTotals = {};
-
   expenses.forEach(e => {
-    if (!categoryTotals[e.category]) {
-      categoryTotals[e.category] = 0;
-    }
+    if (!categoryTotals[e.category]) categoryTotals[e.category] = 0;
     categoryTotals[e.category] += e.amount;
   });
 
-  let biggestCategory = Object.keys(categoryTotals).reduce((a, b) =>
+  let biggest = Object.keys(categoryTotals).reduce((a, b) =>
     categoryTotals[a] > categoryTotals[b] ? a : b
   );
 
   aiText.innerText = `
 Toplam Harcama: ${total}₺
 
-En çok harcama yapılan kategori: ${biggestCategory}
+En çok harcama: ${biggest}
 
 AI Yorumu:
 ${
-  categoryTotals[biggestCategory] > total * 0.5
-    ? biggestCategory + " kategorisinde fazla harcama yapıyorsun."
+  categoryTotals[biggest] > total * 0.5
+    ? biggest + " kategorisinde fazla harcama yapıyorsun."
     : "Harcama dağılımın dengeli görünüyor."
 }
 `;
 }
 
-document.addEventListener("DOMContentLoaded", render);
+function renderChart() {
+  const ctx = document.getElementById("expenseChart");
+
+  if (!ctx) return;
+
+  let categoryTotals = {};
+  expenses.forEach(e => {
+    if (!categoryTotals[e.category]) categoryTotals[e.category] = 0;
+    categoryTotals[e.category] += e.amount;
+  });
+
+  const labels = Object.keys(categoryTotals);
+  const data = Object.values(categoryTotals);
+
+  if (chart) {
+    chart.destroy();
+  }
+
+  chart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          data: data,
+          backgroundColor: [
+            "#22c55e",
+            "#3b82f6",
+            "#f59e0b",
+            "#ef4444",
+            "#a855f7",
+            "#14b8a6"
+          ]
+        }
+      ]
+    }
+  });
+}
