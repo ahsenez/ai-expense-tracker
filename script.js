@@ -11,3 +11,4 @@ function addExpense() {
 
  if (!title || !amount) {
    alert("Lütfen tüm alanları doldur!");
+   return;
