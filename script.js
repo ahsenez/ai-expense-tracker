@@ -17,3 +17,7 @@ function addExpense() {
  expenses.push({ title, amount, category });
 saveExpenses();
 render();
+
+  document.getElementById("title").value = "";
+  document.getElementById("amount").value = "";
+}
