@@ -9,3 +9,4 @@ function addExpense() {
   const amount = Number(document.getElementById("amount").value);
   const category = document.getElementById("category").value;
 
+ if (!title || !amount) {
