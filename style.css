@@ -1,29 +1,68 @@
 body {
   margin: 0;
-  background: #0f172a;
+  background: linear-gradient(135deg, #020617, #0f172a, #1e293b);
   color: white;
   font-family: Arial, sans-serif;
 }
 
 .app {
-  max-width: 700px;
+  max-width: 1100px;
   margin: auto;
   padding: 30px 20px;
 }
 
-h1 {
-  margin-bottom: 5px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .subtitle {
   color: #cbd5e1;
 }
 
+.badge {
+  background: #22c55e;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.summary-card,
 .card {
-  background: #1e293b;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 14px;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.summary-card p {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.summary-card h2 {
+  margin-bottom: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.wide {
+  grid-column: span 2;
 }
 
 input,
@@ -32,10 +71,16 @@ button {
   width: 100%;
   box-sizing: border-box;
   margin-top: 12px;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 13px;
+  border-radius: 12px;
   border: none;
   font-size: 15px;
+}
+
+input,
+select {
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 button {
@@ -51,11 +96,39 @@ button:hover {
 
 .expense-item {
   background: #334155;
-  padding: 12px;
+  padding: 14px;
   margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+}
+
+.expense-item button {
+  background: #ef4444;
+}
+
+.expense-item button:hover {
+  background: #dc2626;
 }
 
 .empty {
   color: #94a3b8;
+}
+
+canvas {
+  max-height: 300px;
+}
+
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wide {
+    grid-column: span 1;
+  }
 }
