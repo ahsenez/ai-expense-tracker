@@ -5,3 +5,4 @@ function saveExpenses() {
 }
 
 function addExpense() {
+  const title = document.getElementById("title").value;
