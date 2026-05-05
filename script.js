@@ -8,3 +8,4 @@ function addExpense() {
   const title = document.getElementById("title").value;
   const amount = Number(document.getElementById("amount").value);
   const category = document.getElementById("category").value;
+
