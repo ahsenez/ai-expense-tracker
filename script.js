@@ -16,3 +16,4 @@ function addExpense() {
 
  expenses.push({ title, amount, category });
 saveExpenses();
+render();
