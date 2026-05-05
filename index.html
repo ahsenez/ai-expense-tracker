@@ -4,43 +4,73 @@
   <meta charset="UTF-8">
   <title>AI Harcama Takipçisi</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <div class="app">
-  <h1>💸 AI Harcama Takipçisi</h1>
-  <p class="subtitle">Akıllı bütçe analizi ve harcama kontrol paneli</p>
+  <header>
+    <div>
+      <h1>💸 AI Harcama Takipçisi</h1>
+      <p class="subtitle">Akıllı bütçe analizi, kategori takibi ve tasarruf önerileri</p>
+    </div>
+    <span class="badge">AI Destekli</span>
+  </header>
 
-  <div class="card">
-    <h2>Harcama Ekle</h2>
+  <div class="summary">
+    <div class="summary-card">
+      <p>Toplam Harcama</p>
+      <h2 id="totalAmount">0₺</h2>
+    </div>
 
-    <input type="text" id="title" placeholder="Harcama adı">
-    <input type="number" id="amount" placeholder="Tutar (₺)">
+    <div class="summary-card">
+      <p>İşlem Sayısı</p>
+      <h2 id="expenseCount">0</h2>
+    </div>
 
-    <select id="category">
-      <option>Yemek</option>
-      <option>Alışveriş</option>
-      <option>Ulaşım</option>
-      <option>Eğlence</option>
-      <option>Fatura</option>
-      <option>Diğer</option>
-    </select>
-
-    <button onclick="addExpense()">Harcama Ekle</button>
-  </div>
-
-  <div class="card">
-    <h2>Harcamalar</h2>
-    <div id="list">
-      <p class="empty">Henüz harcama eklenmedi.</p>
+    <div class="summary-card">
+      <p>En Yüksek Kategori</p>
+      <h2 id="topCategory">-</h2>
     </div>
   </div>
 
-  <div class="card">
-    <h2>AI Analizi</h2>
-    <p id="aiText">Henüz analiz yapılmadı.</p>
-    <button onclick="analyze()">Analiz Et</button>
-  </div>
+  <main class="grid">
+    <section class="card">
+      <h2>Harcama Ekle</h2>
+
+      <input type="text" id="title" placeholder="Harcama adı">
+      <input type="number" id="amount" placeholder="Tutar (₺)">
+
+      <select id="category">
+        <option>Yemek</option>
+        <option>Alışveriş</option>
+        <option>Ulaşım</option>
+        <option>Eğlence</option>
+        <option>Fatura</option>
+        <option>Diğer</option>
+      </select>
+
+      <button onclick="addExpense()">Harcama Ekle</button>
+    </section>
+
+    <section class="card">
+      <h2>AI Analizi</h2>
+      <p id="aiText">Henüz analiz yapılmadı.</p>
+      <button onclick="analyze()">Analiz Et</button>
+    </section>
+
+    <section class="card wide">
+      <h2>Kategori Bazlı Harcama Grafiği</h2>
+      <canvas id="expenseChart"></canvas>
+    </section>
+
+    <section class="card wide">
+      <h2>Harcamalar</h2>
+      <div id="list">
+        <p class="empty">Henüz harcama eklenmedi.</p>
+      </div>
+    </section>
+  </main>
 </div>
 
 <script src="script.js"></script>
