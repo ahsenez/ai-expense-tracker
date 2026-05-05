@@ -13,3 +13,5 @@ function addExpense() {
    alert("Lütfen tüm alanları doldur!");
    return;
   }
+
+ expenses.push({ title, amount, category });
